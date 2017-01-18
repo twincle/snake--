@@ -37,23 +37,29 @@ export class PieceComponent implements OnChanges, OnInit {
 
   private _changeState () : void {
     this.piece = this._groundService.getPiece(this.rowIndex, this.colIndex);
-    this.backwardDirection = this._directionService.getBackwardDirection(this.rowIndex, this.colIndex);
-    this.forwardDirection = this._directionService.getForwardDirection(this.rowIndex, this.colIndex);
 
-    this.state = {
-      'ground-none'       : this.piece === this._constantsService.GROUND_NONE,
-      'ground-snake-body' : this.piece === this._constantsService.GROUND_SNAKE_BODY,
-      'ground-food'       : this.piece === this._constantsService.GROUND_FOOD,
+    if (this.piece === this._constantsService.GROUND_SNAKE_BODY) {
+      this.backwardDirection = this._directionService.getBackwardDirection(this.rowIndex, this.colIndex);
+      this.forwardDirection = this._directionService.getForwardDirection(this.rowIndex, this.colIndex);
 
-      'direction-up'      : this.forwardDirection  === this._constantsService.DIRECTION_UP    ||
-                            this.backwardDirection === this._constantsService.DIRECTION_UP    ,
-      'direction-right'   : this.forwardDirection  === this._constantsService.DIRECTION_RIGHT ||
-                            this.backwardDirection === this._constantsService.DIRECTION_RIGHT ,
-      'direction-down'    : this.forwardDirection  === this._constantsService.DIRECTION_DOWN  ||
-                            this.backwardDirection === this._constantsService.DIRECTION_DOWN  ,
-      'direction-left'    : this.forwardDirection  === this._constantsService.DIRECTION_LEFT  ||
-                            this.backwardDirection === this._constantsService.DIRECTION_LEFT
-    };
+      this.state = {
+        'ground-snake-body' : true,
+
+        'direction-up'      : this.forwardDirection  === this._constantsService.DIRECTION_UP    ||
+                              this.backwardDirection === this._constantsService.DIRECTION_UP    ,
+        'direction-right'   : this.forwardDirection  === this._constantsService.DIRECTION_RIGHT ||
+                              this.backwardDirection === this._constantsService.DIRECTION_RIGHT ,
+        'direction-down'    : this.forwardDirection  === this._constantsService.DIRECTION_DOWN  ||
+                              this.backwardDirection === this._constantsService.DIRECTION_DOWN  ,
+        'direction-left'    : this.forwardDirection  === this._constantsService.DIRECTION_LEFT  ||
+                              this.backwardDirection === this._constantsService.DIRECTION_LEFT
+      };
+    } else {
+      this.state = {
+        'ground-none'       : this.piece === this._constantsService.GROUND_NONE,
+        'ground-food'       : this.piece === this._constantsService.GROUND_FOOD
+      }
+    }
   }
 
 }
