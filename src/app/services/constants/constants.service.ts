@@ -15,6 +15,11 @@ export class ConstantsService {
   DIRECTION_DOWN  : number = 3;
   DIRECTION_LEFT  : number = 4;
 
+  KEY_CODE_ARROW_UP    : number = 38;
+  KEY_CODE_ARROW_RIGHT : number = 39;
+  KEY_CODE_ARROW_DOWN  : number = 40;
+  KEY_CODE_ARROW_LEFT  : number = 37;
+
   constructor () { }
 
 }
