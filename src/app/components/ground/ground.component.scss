@@ -1,0 +1,21 @@
+@import "../../../styles";
+
+.ground {
+  background-color: $ground-none-color;
+  border: 1px solid $ground-snake-body-color;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 12px);
+  max-height: calc(100vw - 12px);
+  max-width: calc(100vh - 12px);
+  width: calc(100vw - 12px);
+
+  .ground-row {
+    display: flex;
+    flex-grow: 1;
+
+    app-piece {
+      flex-grow: 1;
+    }
+  }
+}

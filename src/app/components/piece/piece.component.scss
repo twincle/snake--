@@ -1,0 +1,34 @@
+@import "../../../styles";
+
+.ground-piece {
+  height: calc(100% - 1px);
+  margin: 0.5px;
+  padding: 0;
+
+  &.direction-up {
+    margin-top: 0;
+    padding-top: 0.5px;
+  }
+  &.direction-right {
+    margin-right: 0;
+    padding-right: 0.5px;
+  }
+  &.direction-down {
+    margin-bottom: 0;
+    padding-bottom: 0.5px;
+  }
+  &.direction-left {
+    margin-left: 0;
+    padding-left: 0.5px;
+  }
+
+  &.ground-none {
+    background-color: $ground-none-color;
+  }
+  &.ground-snake-body {
+    background-color: $ground-snake-body-color;
+  }
+  &.ground-food {
+    background-color: $ground-food-color;
+  }
+}

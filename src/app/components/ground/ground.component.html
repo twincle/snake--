@@ -1,0 +1,9 @@
+<div class="ground">
+  <div class="ground-row"
+       *ngFor="let row of groundService.ground; let rowIndex = index; trackBy: trackByIndex">
+    <app-piece *ngFor="let item of row; let colIndex = index; trackBy: trackByIndex"
+               [colIndex]="colIndex"
+               [rowIndex]="rowIndex">
+    </app-piece>
+  </div>
+</div>
