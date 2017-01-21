@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { ConstantsService } from '../../services/constants/constants.service';
 import { DirectionService } from '../../services/direction/direction.service';
@@ -9,16 +9,13 @@ import { GroundService } from '../../services/ground/ground.service';
   templateUrl: './piece.component.html',
   styleUrls: ['./piece.component.scss']
 })
-export class PieceComponent implements OnChanges, OnInit {
+export class PieceComponent {
 
   @Input() colIndex : number;
   @Input() rowIndex : number;
 
-  backwardDirection : number;
-  forwardDirection : number;
   piece : number;
-
-  state : any;
+  state : any = {};
 
   constructor (
     private _constantsService : ConstantsService,
@@ -28,38 +25,25 @@ export class PieceComponent implements OnChanges, OnInit {
 
   }
 
-  ngOnChanges () : void {
-    this._changeState();
-  }
-  ngOnInit () : void {
-    this._changeState();
-  }
+  setState () : any {
+    const piece = this._groundService.getPiece(this.rowIndex, this.colIndex);
+    const backwardDirection = this._directionService.getBackwardDirection(this.rowIndex, this.colIndex);
+    const forwardDirection = this._directionService.getForwardDirection(this.rowIndex, this.colIndex);
 
-  private _changeState () : void {
-    this.piece = this._groundService.getPiece(this.rowIndex, this.colIndex);
+    return Object.assign(this.state, {
+      'ground-none'       : piece === this._constantsService.GROUND_NONE,
+      'ground-snake-body' : piece === this._constantsService.GROUND_SNAKE_BODY,
+      'ground-food'       : piece === this._constantsService.GROUND_FOOD,
 
-    if (this.piece === this._constantsService.GROUND_SNAKE_BODY) {
-      this.backwardDirection = this._directionService.getBackwardDirection(this.rowIndex, this.colIndex);
-      this.forwardDirection = this._directionService.getForwardDirection(this.rowIndex, this.colIndex);
-
-      this.state = {
-        'ground-snake-body' : true,
-
-        'direction-up'      : this.forwardDirection  === this._constantsService.DIRECTION_UP    ||
-                              this.backwardDirection === this._constantsService.DIRECTION_UP    ,
-        'direction-right'   : this.forwardDirection  === this._constantsService.DIRECTION_RIGHT ||
-                              this.backwardDirection === this._constantsService.DIRECTION_RIGHT ,
-        'direction-down'    : this.forwardDirection  === this._constantsService.DIRECTION_DOWN  ||
-                              this.backwardDirection === this._constantsService.DIRECTION_DOWN  ,
-        'direction-left'    : this.forwardDirection  === this._constantsService.DIRECTION_LEFT  ||
-                              this.backwardDirection === this._constantsService.DIRECTION_LEFT
-      };
-    } else {
-      this.state = {
-        'ground-none'       : this.piece === this._constantsService.GROUND_NONE,
-        'ground-food'       : this.piece === this._constantsService.GROUND_FOOD
-      }
-    }
+      'direction-up'      : forwardDirection  === this._constantsService.DIRECTION_UP    ||
+                            backwardDirection === this._constantsService.DIRECTION_UP    ,
+      'direction-right'   : forwardDirection  === this._constantsService.DIRECTION_RIGHT ||
+                            backwardDirection === this._constantsService.DIRECTION_RIGHT ,
+      'direction-down'    : forwardDirection  === this._constantsService.DIRECTION_DOWN  ||
+                            backwardDirection === this._constantsService.DIRECTION_DOWN  ,
+      'direction-left'    : forwardDirection  === this._constantsService.DIRECTION_LEFT  ||
+                            backwardDirection === this._constantsService.DIRECTION_LEFT
+    });
   }
 
 }

@@ -1,32 +1,38 @@
 import { Injectable } from '@angular/core';
 
 import { ConstantsService } from '../constants/constants.service';
+import { RuntimeService } from '../runtime/runtime.service';
 import { SnakeService } from '../snake/snake.service';
 
 @Injectable()
 export class DirectionService {
 
-  direction : number;
-
   constructor (
     private _constantsService : ConstantsService,
+    private _runtimeService : RuntimeService,
     private _snakeService : SnakeService
   ) {
+    this._onInit();
+  }
 
+  setDirection (
+    direction : number
+  ) : number {
+    return this._runtimeService.direction = direction;
   }
 
   getForwardDirection (
     rowIndex : number,
     colIndex : number
   ) : number {
-    let bodyIndex = this._snakeService.indexOfSnakeBody(rowIndex, colIndex);
+    const bodyIndex : number = this._snakeService.indexOfSnakeBody(rowIndex, colIndex);
 
     if (bodyIndex <= 0) {
       return this._constantsService.DIRECTION_NONE;
     } else {
-      let forwardIndex = bodyIndex - 1;
-      let forwardRowIndex = this._snakeService.snake[forwardIndex][0];
-      let forwardColIndex = this._snakeService.snake[forwardIndex][1];
+      const forwardIndex : number = bodyIndex - 1;
+      const forwardRowIndex : number = this._runtimeService.snake[forwardIndex][0];
+      const forwardColIndex : number = this._runtimeService.snake[forwardIndex][1];
 
       if (forwardRowIndex === rowIndex - 1 && forwardColIndex === colIndex) {
         return this._constantsService.DIRECTION_UP;
@@ -45,14 +51,14 @@ export class DirectionService {
     rowIndex : number,
     colIndex : number
   ) : number {
-    let bodyIndex = this._snakeService.indexOfSnakeBody(rowIndex, colIndex);
+    const bodyIndex : number = this._snakeService.indexOfSnakeBody(rowIndex, colIndex);
 
-    if (bodyIndex < 0 || bodyIndex >= this._snakeService.snake.length - 1) {
+    if (bodyIndex < 0 || bodyIndex >= this._runtimeService.snake.length - 1) {
       return this._constantsService.DIRECTION_NONE;
     } else {
-      let backwardIndex = bodyIndex + 1;
-      let backwardRowIndex = this._snakeService.snake[backwardIndex][0];
-      let backwardColIndex = this._snakeService.snake[backwardIndex][1];
+      const backwardIndex : number = bodyIndex + 1;
+      const backwardRowIndex : number = this._runtimeService.snake[backwardIndex][0];
+      const backwardColIndex : number = this._runtimeService.snake[backwardIndex][1];
 
       if (backwardRowIndex === rowIndex - 1 && backwardColIndex === colIndex) {
         return this._constantsService.DIRECTION_UP;
@@ -69,7 +75,37 @@ export class DirectionService {
   }
 
   initDirection () : number {
-    return this.direction = this._constantsService.DIRECTION_RIGHT;
+    return this._runtimeService.direction = this._constantsService.DIRECTION_RIGHT;
+  }
+
+  private _onInit () : void {
+    document.body.onkeydown = (e : KeyboardEvent) : void => {
+      if (
+        e.keyCode === this._constantsService.KEY_CODE_ARROW_UP &&
+        this._runtimeService.direction !== this._constantsService.DIRECTION_UP &&
+        this._runtimeService.direction !== this._constantsService.DIRECTION_DOWN
+      ) {
+        this.setDirection(this._constantsService.DIRECTION_UP);
+      } else if (
+        e.keyCode === this._constantsService.KEY_CODE_ARROW_RIGHT &&
+        this._runtimeService.direction !== this._constantsService.DIRECTION_RIGHT &&
+        this._runtimeService.direction !== this._constantsService.DIRECTION_LEFT
+      ) {
+        this.setDirection(this._constantsService.DIRECTION_RIGHT);
+      } else if (
+        e.keyCode === this._constantsService.KEY_CODE_ARROW_DOWN &&
+        this._runtimeService.direction !== this._constantsService.DIRECTION_UP &&
+        this._runtimeService.direction !== this._constantsService.DIRECTION_DOWN
+      ) {
+        this.setDirection(this._constantsService.DIRECTION_DOWN);
+      } else if (
+        e.keyCode === this._constantsService.KEY_CODE_ARROW_LEFT &&
+        this._runtimeService.direction !== this._constantsService.DIRECTION_RIGHT &&
+        this._runtimeService.direction !== this._constantsService.DIRECTION_LEFT
+      ) {
+        this.setDirection(this._constantsService.DIRECTION_LEFT);
+      }
+    };
   }
 
 }

@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { ConstantsService } from './services/constants/constants.service';
 import { DirectionService } from './services/direction/direction.service';
 import { GroundService } from './services/ground/ground.service';
+import { RuntimeService } from './services/runtime/runtime.service';
 import { SnakeService } from './services/snake/snake.service';
 
 import { AppComponent } from './app.component';
@@ -27,6 +28,7 @@ import { PieceComponent } from './components/piece/piece.component';
     ConstantsService,
     DirectionService,
     GroundService,
+    RuntimeService,
     SnakeService
   ],
   bootstrap: [AppComponent]

@@ -3,7 +3,12 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ConstantsService {
 
-  GROUND_SIZE : number = 65;
+  GAME_STATE_READY    : number = 1;
+  GAME_STATE_RUNNING  : number = 2;
+  GAME_STATE_PULSE    : number = 3;
+  GAME_STATE_OVER     : number = 4;
+
+  GROUND_SIZE : number = 45;
 
   GROUND_NONE       : number = 0;
   GROUND_SNAKE_BODY : number = 1;
