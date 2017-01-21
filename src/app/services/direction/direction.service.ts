@@ -82,33 +82,31 @@ export class DirectionService {
 
   private _onInit () : void {
     document.body.onkeydown = (e : KeyboardEvent) : void => {
-      if (this._lastKeyCode === e.keyCode) {
-        return;
-      }
+      const snakeHead : number[] = this._runtimeService.snake[1];
+      const snakeDirection : number = this.getForwardDirection(snakeHead[0], snakeHead[1]);
 
-      this._lastKeyCode = e.keyCode;
       if (
         e.keyCode === this._constantsService.KEY_CODE_ARROW_UP &&
-        this._runtimeService.direction !== this._constantsService.DIRECTION_UP &&
-        this._runtimeService.direction !== this._constantsService.DIRECTION_DOWN
+        snakeDirection !== this._constantsService.DIRECTION_UP &&
+        snakeDirection !== this._constantsService.DIRECTION_DOWN
       ) {
         this.setDirection(this._constantsService.DIRECTION_UP);
       } else if (
         e.keyCode === this._constantsService.KEY_CODE_ARROW_RIGHT &&
-        this._runtimeService.direction !== this._constantsService.DIRECTION_RIGHT &&
-        this._runtimeService.direction !== this._constantsService.DIRECTION_LEFT
+        snakeDirection !== this._constantsService.DIRECTION_RIGHT &&
+        snakeDirection !== this._constantsService.DIRECTION_LEFT
       ) {
         this.setDirection(this._constantsService.DIRECTION_RIGHT);
       } else if (
         e.keyCode === this._constantsService.KEY_CODE_ARROW_DOWN &&
-        this._runtimeService.direction !== this._constantsService.DIRECTION_UP &&
-        this._runtimeService.direction !== this._constantsService.DIRECTION_DOWN
+        snakeDirection !== this._constantsService.DIRECTION_UP &&
+        snakeDirection !== this._constantsService.DIRECTION_DOWN
       ) {
         this.setDirection(this._constantsService.DIRECTION_DOWN);
       } else if (
         e.keyCode === this._constantsService.KEY_CODE_ARROW_LEFT &&
-        this._runtimeService.direction !== this._constantsService.DIRECTION_RIGHT &&
-        this._runtimeService.direction !== this._constantsService.DIRECTION_LEFT
+        snakeDirection !== this._constantsService.DIRECTION_RIGHT &&
+        snakeDirection !== this._constantsService.DIRECTION_LEFT
       ) {
         this.setDirection(this._constantsService.DIRECTION_LEFT);
       }

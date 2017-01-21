@@ -8,7 +8,7 @@ export class ConstantsService {
   GAME_STATE_PULSE    : number = 3;
   GAME_STATE_OVER     : number = 4;
 
-  GROUND_SIZE : number = 45;
+  GROUND_SIZE : number = 25;
 
   GROUND_NONE       : number = 0;
   GROUND_SNAKE_BODY : number = 1;
