@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { ConstantsService } from '../../services/constants/constants.service';
 import { DirectionService } from '../../services/direction/direction.service';
@@ -9,7 +9,7 @@ import { GroundService } from '../../services/ground/ground.service';
   templateUrl: './piece.component.html',
   styleUrls: ['./piece.component.scss']
 })
-export class PieceComponent {
+export class PieceComponent implements OnInit {
 
   @Input() colIndex : number;
   @Input() rowIndex : number;
@@ -25,7 +25,7 @@ export class PieceComponent {
 
   }
 
-  setState () : any {
+  getState () : any {
     const piece = this._groundService.getPiece(this.rowIndex, this.colIndex);
     const backwardDirection = this._directionService.getBackwardDirection(this.rowIndex, this.colIndex);
     const forwardDirection = this._directionService.getForwardDirection(this.rowIndex, this.colIndex);
@@ -44,6 +44,10 @@ export class PieceComponent {
       'direction-left'    : forwardDirection  === this._constantsService.DIRECTION_LEFT  ||
                             backwardDirection === this._constantsService.DIRECTION_LEFT
     });
+  }
+
+  ngOnInit () : void {
+    this.getState();
   }
 
 }

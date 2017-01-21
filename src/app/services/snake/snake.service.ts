@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { ConstantsService } from '../constants/constants.service';
+import { FoodService } from '../../services/food/food.service';
 import { GroundService } from '../ground/ground.service';
 import { RuntimeService } from '../runtime/runtime.service';
 
@@ -9,6 +10,7 @@ export class SnakeService {
 
   constructor(
     private _constantsService : ConstantsService,
+    private _foodService : FoodService,
     private _groundService : GroundService,
     private _runtimeService : RuntimeService
   ) {
@@ -48,6 +50,7 @@ export class SnakeService {
     } else if (nextPiece === this._constantsService.GROUND_FOOD) {
       this._groundService.setPiece(nextPieceIndex[0], nextPieceIndex[1], this._constantsService.GROUND_SNAKE_BODY);
       this._runtimeService.snake.unshift(nextPieceIndex);
+      this._foodService.produceFood();
     }
   }
 

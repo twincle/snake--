@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { ConstantsService } from './services/constants/constants.service';
 import { DirectionService } from './services/direction/direction.service';
+import { FoodService } from './services/food/food.service';
 import { GroundService } from './services/ground/ground.service';
 import { RuntimeService } from './services/runtime/runtime.service';
 import { SnakeService } from './services/snake/snake.service';
@@ -27,6 +28,7 @@ import { PieceComponent } from './components/piece/piece.component';
   providers: [
     ConstantsService,
     DirectionService,
+    FoodService,
     GroundService,
     RuntimeService,
     SnakeService

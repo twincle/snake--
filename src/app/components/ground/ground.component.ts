@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { ConstantsService } from '../../services/constants/constants.service';
 import { DirectionService } from '../../services/direction/direction.service';
+import { FoodService } from '../../services/food/food.service';
 import { GroundService } from '../../services/ground/ground.service';
 import { RuntimeService } from '../../services/runtime/runtime.service';
 import { SnakeService } from '../../services/snake/snake.service';
@@ -20,6 +21,7 @@ export class GroundComponent implements OnInit {
 
     private _constantsService : ConstantsService,
     private _directionService : DirectionService,
+    private _foodService : FoodService,
     private _runtimeService : RuntimeService,
     private _snakeService : SnakeService
   ) {
@@ -53,6 +55,7 @@ export class GroundComponent implements OnInit {
 
     this.groundService.initGroundBySnake(this._runtimeService.snake);
     this._runtimeService.gameState = this._constantsService.GAME_STATE_RUNNING;
+    this._foodService.produceFood();
 
     this.ground = this._runtimeService.ground;
   }

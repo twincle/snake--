@@ -7,6 +7,8 @@ import { SnakeService } from '../snake/snake.service';
 @Injectable()
 export class DirectionService {
 
+  private _lastKeyCode : number;
+
   constructor (
     private _constantsService : ConstantsService,
     private _runtimeService : RuntimeService,
@@ -80,6 +82,11 @@ export class DirectionService {
 
   private _onInit () : void {
     document.body.onkeydown = (e : KeyboardEvent) : void => {
+      if (this._lastKeyCode === e.keyCode) {
+        return;
+      }
+
+      this._lastKeyCode = e.keyCode;
       if (
         e.keyCode === this._constantsService.KEY_CODE_ARROW_UP &&
         this._runtimeService.direction !== this._constantsService.DIRECTION_UP &&
